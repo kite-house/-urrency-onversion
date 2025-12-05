@@ -1,5 +1,5 @@
 from sqlalchemy.ext.asyncio import async_sessionmaker, create_async_engine
-from database.models import Base, Course
+from database.models import Base, Course, DateUpdate, datetime
 from dotenv import get_key
 
 engine = create_async_engine(url = get_key('.env', 'DATABASE'))
@@ -20,4 +20,9 @@ async def write_courses(rates: dict) -> None:
             Course(code=code, value=value) for code, value in rates.items()
         ]
         session.add_all(courses)
+        
+        session.add(DateUpdate(
+            date_update = datetime.now()
+        ))
+
         await session.commit()
