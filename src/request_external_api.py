@@ -15,4 +15,10 @@ async def get_rates():
 
     if response.status_code == 200:
         rates = response.json()['rates']
-        await write_courses(rates)
+        if len(rates) > 1:
+            await write_courses(rates)
+        else:
+            raise ValueError('The external service sent empty data')
+    else:
+        raise requests.exceptions.ConnectionError("Couldn't contact the external API")
+
