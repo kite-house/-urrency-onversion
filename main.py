@@ -1,10 +1,13 @@
 from fastapi import FastAPI
 import uvicorn
 
+from src.scheduler import lifespan
+
 app = FastAPI(
     title = 'CurrencyConversion',
     description= "API for working with currency exchange rates",
-    root_path="/api/v1"
+    root_path="/api/v1",
+    lifespan=lifespan
 )
 
 
