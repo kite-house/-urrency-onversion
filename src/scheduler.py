@@ -18,8 +18,8 @@ async def lifespan(app: FastAPI):
         )
         scheduler.start()
         yield
-    except Exception:
-        pass
+    except Exception as error:
+        print(f'An error has occurred in the scheduler:: {error}')
 
     finally:
         scheduler.shutdown()
